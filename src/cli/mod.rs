@@ -249,6 +249,7 @@ pub(crate) struct Cli {
 pub(crate) enum Commands {
     /// Switch to a worktree; create if needed
     #[command(
+        visible_alias = "s",
         after_long_help = r#"Worktrees are addressed by branch name; paths are computed from a configurable template. Unlike `git switch`, this navigates between worktrees rather than changing branches in place.
 
 <!-- demo: wt-switch.gif 1600x900 -->
@@ -464,6 +465,7 @@ To change which branch a worktree is on, use `git switch` inside that worktree.
 
     /// List worktrees and their status
     #[command(
+        visible_alias = "ls",
         after_long_help = r#"Shows uncommitted changes, divergence from the default branch and remote, and optional CI status and LLM summaries.
 
 <!-- demo: wt-list.gif 1600x900 -->
@@ -745,7 +747,9 @@ Missing a field that would be generally useful? Open an issue at https://github.
     /// Remove worktree; delete branch if merged
     ///
     /// Defaults to the current worktree.
-    #[command(after_long_help = r#"## Examples
+    #[command(
+        visible_alias = "rm",
+        after_long_help = r#"## Examples
 
 Remove current worktree:
 
@@ -817,7 +821,8 @@ Removal runs in the background by default (returns immediately). Logs are writte
 
 - [`wt merge`](@/merge.md) — Remove worktree after merging
 - [`wt list`](@/list.md) — View all worktrees
-"#)]
+"#
+    )]
     Remove {
         /// Branch name [default: current]
         #[arg(add = crate::completion::local_branches_completer())]
